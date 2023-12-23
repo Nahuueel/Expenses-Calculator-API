@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  expensescalculatorbackend:
+    image: ${DOCKER_REGISTRY-}expensescalculatorbackend
+    build:
+      context: .
+      dockerfile: ExpensesCalculatorBackend/Dockerfile
