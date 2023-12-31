@@ -3,6 +3,24 @@ version: '3.4'
 services:
   expensescalculatorbackend:
     image: ${DOCKER_REGISTRY-}expensescalculatorbackend
+    container_name: ApiContainer
     build:
       context: .
       dockerfile: ExpensesCalculatorBackend/Dockerfile
+    depends_on:
+      - mongodb
+  
+  mongodb:
+    image: mongo:latest
+    container_name: MongoDB  # Set a custom container name
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db  # Mount a volume for MongoDB data persistence
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin  # Set the root username
+      MONGO_INITDB_ROOT_PASSWORD: mongoadmin  # Set the root password
+      MONGO_INITDB_DATABASE: mongodatabase  # Set the initial database to create
+
+volumes:
+  mongodb_data:  # Define the volume for MongoDB data persistence
